@@ -1,24 +1,22 @@
-import React from "react";
-import { Handle, Position } from "reactflow";
+import { Handle, Position } from "reactflow"
 
-export const OutputNode = ({ data }) => {
+export const OutputNode = ({ id }) => {
 
   return (
     <div style={{
       padding:10,
       border:"1px solid black",
-      borderRadius:5,
       background:"white"
     }}>
 
       <Handle
         type="target"
         position={Position.Left}
-        id="input"
+        id={`${id}-value`}
       />
 
-      <div>Output Node</div>
+      Output
 
     </div>
-  );
-};
+  )
+}

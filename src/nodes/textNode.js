@@ -1,37 +1,43 @@
-import React, { useState } from "react";
-import { Handle, Position } from "reactflow";
+import { useState } from "react"
+import { Handle, Position } from "reactflow"
 
-export const TextNode = ({ data }) => {
+export const TextNode = ({ id }) => {
 
-  const [text, setText] = useState("");
+  const [text,setText] = useState("{{input}}")
+
+  const variables = [...text.matchAll(/{{(.*?)}}/g)]
 
   return (
+
     <div style={{
       padding:10,
       border:"1px solid black",
-      borderRadius:5,
-      background:"#e6f7ff"
+      background:"white",
+      minWidth:150
     }}>
 
-      <Handle
-        type="target"
-        position={Position.Left}
-      />
-
-      <div>Text Node</div>
+      {variables.map((v,i)=>(
+        <Handle
+          key={i}
+          type="target"
+          position={Position.Left}
+          id={v[1]}
+          style={{top:30+(i*20)}}
+        />
+      ))}
 
       <textarea
         value={text}
         onChange={(e)=>setText(e.target.value)}
-        placeholder="Enter text..."
-        style={{width:150}}
+        style={{width:"100%"}}
       />
 
       <Handle
         type="source"
         position={Position.Right}
+        id={`${id}-output`}
       />
 
     </div>
-  );
-};
+  )
+}

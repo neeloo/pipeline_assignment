@@ -1,24 +1,42 @@
-import axios from "axios";
+import { useStore } from "./store"
 
-export default function Submit({ nodes, edges }) {
+export const SubmitButton = () => {
+
+  const nodes = useStore(state => state.nodes)
+  const edges = useStore(state => state.edges)
 
   const handleSubmit = async () => {
 
-    const res = await axios.post("http://localhost:8080/pipeline_backend/parse", {
-  nodes: nodes,
-  edges: edges
-});
+    const res = await fetch(
+      "http://localhost:8080/pipeline_backend/parse",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          nodes,
+          edges
+        })
+      }
+    )
+
+    const data = await res.json()
 
     alert(
-      "Nodes: " + res.data.num_nodes +
-      "\nEdges: " + res.data.num_edges +
-      "\nIs DAG: " + res.data.is_dag
-    );
-  };
+      "Nodes: " + data.num_nodes +
+      "\nEdges: " + data.num_edges +
+      "\nIs DAG: " + data.is_dag
+    )
+  }
 
   return (
-    <button onClick={handleSubmit}>
-      Submit Pipeline
-    </button>
-  );
+    <div style={{
+      display: "flex",
+      justifyContent: "center",
+      marginTop: "20px"
+    }}>
+      <button onClick={handleSubmit}>Submit</button>
+    </div>
+  )
 }

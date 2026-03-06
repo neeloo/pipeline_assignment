@@ -1,28 +1,28 @@
-import React from "react";
-import { Handle, Position } from "reactflow";
+import { Handle, Position } from "reactflow"
 
-export const LLMNode = ({ data }) => {
+export const LLMNode = ({ id }) => {
 
   return (
     <div style={{
       padding:10,
       border:"1px solid black",
-      borderRadius:5,
-      background:"#f5f5f5"
+      background:"white"
     }}>
 
       <Handle
         type="target"
         position={Position.Left}
+        id={`${id}-input`}
       />
 
-      <div>LLM Node</div>
+      LLM
 
       <Handle
         type="source"
         position={Position.Right}
+        id={`${id}-output`}
       />
 
     </div>
-  );
-};
+  )
+}
