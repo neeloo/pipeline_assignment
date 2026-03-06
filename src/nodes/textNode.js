@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Handle, Position } from "reactflow";
 
-export const LLMNode = ({ data }) => {
+export const TextNode = ({ data }) => {
+
+  const [text, setText] = useState("");
 
   return (
     <div style={{
       padding:10,
       border:"1px solid black",
       borderRadius:5,
-      background:"#f5f5f5"
+      background:"#e6f7ff"
     }}>
 
       <Handle
@@ -16,7 +18,14 @@ export const LLMNode = ({ data }) => {
         position={Position.Left}
       />
 
-      <div>LLM Node</div>
+      <div>Text Node</div>
+
+      <textarea
+        value={text}
+        onChange={(e)=>setText(e.target.value)}
+        placeholder="Enter text..."
+        style={{width:150}}
+      />
 
       <Handle
         type="source"
